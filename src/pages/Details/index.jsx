@@ -1,9 +1,11 @@
-import { Container, Links, Content } from './styles'
-import { Button } from '../../components/button'
-import { Header } from '../../components/header'
-import { Section } from '../../components/Section'
-import { Tag } from '../../components/Tag'
-import { ButtonText } from '../../components/ButtonText'
+import { Container, Links, Content } from './styles';
+import { Button } from '../../components/button';
+import { Header } from '../../components/header';
+import { Section } from '../../components/Section';
+import { Tag } from '../../components/Tag';
+import { ButtonText } from '../../components/ButtonText';
+
+import { Link } from 'react-router-dom';
 
 export function Details() {
 
