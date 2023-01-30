@@ -10,6 +10,7 @@ export const Container = styled.div`
     "header" 
     "content";
 
+
     .tags {
         display: flex;
         justify-content: space-between;
@@ -20,6 +21,7 @@ export const Container = styled.div`
         grid-area: content;
         overflow-y: auto;
     }
+
 `;
 
 export const Form = styled.form`
@@ -33,7 +35,7 @@ export const Form = styled.form`
 
         margin-bottom: 36px;
         
-        a {
+        button {
             font-size: 20px;
             color: ${({ theme }) => theme.COLORS.GRAY_100};
         }

@@ -29,17 +29,15 @@ function AuthProvider({ children }) {
         }
 
     function signOut() {
-        const confirm = window.confirm("Deseja mesmo sair ?")
-        if(confirm){
-            localStorage.removeItem("@rocketnotes:token");
-            localStorage.removeItem("@rocketnotes:user");
+        localStorage.removeItem("@rocketnotes:token");
+        localStorage.removeItem("@rocketnotes:user");
 
-            return setData({});
-        }
-        return
+        setData({});
     }
 
+
     async function updateProfile({ user, avatarFile }) {
+
         try{
 
             if(avatarFile) {
