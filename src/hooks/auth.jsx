@@ -29,8 +29,8 @@ function AuthProvider({ children }) {
         }
 
     function signOut() {
-        const condition = prompt("Deseja mesmo sair ? use 'sim' para confirmar: ")
-        if(condition === "SIM" || condition === "sim"){
+        const confirm = window.confirm("Deseja mesmo sair ?")
+        if(confirm){
             localStorage.removeItem("@rocketnotes:token");
             localStorage.removeItem("@rocketnotes:user");
 
