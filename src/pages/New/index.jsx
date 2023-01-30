@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+
 
 import { Header } from '../../components/Header';
 import { Input } from '../../components/Input';
@@ -10,14 +11,60 @@ import { Button } from '../../components/Button';
 
 
 import { Container, Form } from './styles';
+import { api } from '../../services/api';
 
 export function New() {
+    const [title, setTitle ] = useState("");
+    const [description, setDescription] = useState("");
+
     const [links, setLinks ] = useState([]);
     const [newLink, setNewLink] = useState("");
+
+    const [tags, setTags ] = useState([]);
+    const [newTag, setNewTag] = useState("");
+
+    const navigate = useNavigate();
 
     function handleAddLink() {
         setLinks(prevState => [...prevState, newLink]);
         setNewLink("");
+    }
+
+    function handleRemoveLink(linkDeleted) {
+        setLinks(prevState => prevState.filter(link => link !== linkDeleted));
+    }
+
+    function handleAddTag() {
+        setTags(prevState => [...prevState, newTag]);
+        setNewTag("");
+    }
+
+    function handleRemoveTag(tagDeleted) {
+        setTags(prevState => prevState.filter(tag => tag !== tagDeleted))
+    }
+
+    async function handleNewNote() {
+        if(!title) {
+            return alert("Adicione um título a sua nota.")
+        }
+
+        if(newLink) {
+            return alert("Você não adicionou o último link. Confirme sua adição ou deixe o campo vazio.")
+        }
+
+        if(newTag) {
+            return alert("Você não adicionou a última tag. Confirme sua adição ou deixe o campo vazio.")
+        }
+
+        await api.post("/notes", {
+            title,
+            description,
+            tags,
+            links
+        });
+
+        alert("Nota criada!");
+        navigate("/");
     }
 
     return (
@@ -30,10 +77,25 @@ export function New() {
                     <Link to="/"> voltar</Link>
                     </header>
                     
-                    <Input placeholder="Título"/>
-                    <Textarea placeholder="Observações"/>
+                    <Input 
+                    placeholder="Título"
+                    onChange={e => setTitle(e.target.value)}
+                    />
+
+                    <Textarea 
+                    placeholder="Observações"
+                    onChange={e => setDescription(e.target.value)}
+                    />
 
                     <Section title="Links úteis">
+                    {links.map((link, index) => (
+                        <NoteItem 
+                        key={String(index)}
+                        value={link}
+                        onClick={() => handleRemoveLink(link)}
+                        />
+                    ))
+                    }
                     <NoteItem 
                     isNew 
                     placeholder="Novo link"
@@ -45,11 +107,30 @@ export function New() {
 
                     <Section title="Marcadores">
                     <div className='tags'>
-                        <NoteItem value="React"/>
-                        <NoteItem isNew placeholder="Novo marcador"/>
+
+                    {
+                    tags.map((tag, index) => (
+                        <NoteItem
+                        key={String(index)}
+                        value={tag}
+                        onClick={() => handleRemoveTag(tag)}
+                        />
+                    ))
+                    }
+                    <NoteItem 
+                    isNew 
+                    placeholder="Nova tag"
+                    onChange={e => setNewTag(e.target.value)}
+                    value={newTag}
+                    onClick={handleAddTag}
+
+                    />
                     </div>
                     </Section>
-                    <Button title="Salvar"/>
+                    <Button 
+                    title="Salvar"
+                    onClick={handleNewNote}
+                    />
                 </Form>
             </main>
         </Container>
