@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { api } from '../../services/api';
 
 import { Button } from '../../components/Button';
-import { Header } from '../../components/header';
+import { Header } from '../../components/Header';
 import { Section } from '../../components/Section';
 import { Tag } from '../../components/Tag';
 import { ButtonText } from '../../components/ButtonText';
