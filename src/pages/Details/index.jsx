@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { api } from '../../services/api';
 
-import { Button } from '../../components/button';
+import { Button } from '../../components/Button';
 import { Header } from '../../components/header';
 import { Section } from '../../components/Section';
 import { Tag } from '../../components/Tag';
